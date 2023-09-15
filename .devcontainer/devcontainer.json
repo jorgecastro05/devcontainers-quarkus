@@ -1,0 +1,80 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/java
+{
+	"name": "java-quarkus",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
+	"runArgs": ["--ulimit", "nofile=122880:122880"],
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"installMaven": true
+		},
+		"ghcr.io/devcontainers-contrib/features/quarkus-sdkman:2": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+	},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [
+		8080
+	],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "java -version",
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"workbench.colorTheme": "Community Material Theme Palenight",
+				"redhat.telemetry.enabled": false,
+				"quarkus.tools.debug.terminateProcessOnExit": "Ask",
+				"files.autoSave": "afterDelay",
+				"git.openRepositoryInParentFolders": "always",
+				"editor.minimap.enabled": false,
+				"workbench.startupEditor": "none",
+				"quarkus.tools.alwaysShowWelcomePage": false,
+				"git.confirmSync": false,
+				"git.enableSmartCommit": true,
+				"workbench.sideBar.location": "right",
+				"diffEditor.ignoreTrimWhitespace": false,
+				"java.inlayHints.parameterNames.enabled": "none",
+				"microprofile.tools.validation.unknown.excluded": [
+					"*/mp-rest/providers/*/priority",
+					"mp.openapi.schema.*",
+					"kafka-streams.*",
+					"camel.*",
+					"*pass",
+					"*user"
+				],
+				"java.autobuild.enabled": false,
+				"java.cleanup.actionsOnSave": [
+					"addOverride",
+					"tryWithResource"
+				],
+				"java.configuration.maven.userSettings": "/home/vscode/.m2/settings.xml"
+			},
+			"extensions": [
+				"vscjava.vscode-java-pack",
+				"redhat.vscode-xml",
+				"redhat.vscode-quarkus",
+				"Gruntfuggly.todo-tree",
+				"dgileadi.java-decompiler",
+				"sodatea.velocity",
+				"redhat.vscode-yaml",
+				"redhat.vscode-microprofile",
+				"redhat.vscode-apache-camel",
+				"Equinusocio.vsc-community-material-theme",
+				"donjayamanne.githistory"
+			]
+		}
+	},
+
+	"containerEnv": {
+		"MAVEN_SERVER": "",
+		"MAVEN_USERNAME": "",
+		"MAVEN_PASSWORD": ""
+	},
+
+	"postCreateCommand": "bash -i .devcontainer/configure-maven-settings.sh"
+
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
